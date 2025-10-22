@@ -300,18 +300,7 @@ if __name__ == "__main__":
         poke_delta=1 # Use integer delta for periods
     )
 
-    print("\n--- Synergy Analysis Summary ---")
-    print(f"Interaction between '{param1}' and '{param2}':")
-    print(f"  - Sensitivity to {param1} alone (K_a): {K1:.4f}")
-    print(f"  - Sensitivity to {param2} alone (K_b): {K2:.4f}")
-    print(f"  - Synergy Effect (H_ab): {H_synergy:.4f}")
-
-    if abs(H_synergy) < 1e-6: # Check if H is close to zero
-        print("  - Interpretation: The effects of these parameter changes are largely independent (additive).")
-    elif H_synergy > 0:
-        print("  - Interpretation: Positive Synergy - Changing both parameters together produces a stronger combined effect on the score than expected.")
-    else: # H_synergy < 0
-        print("  - Interpretation: Negative Interference - Changing both parameters together produces a weaker combined effect (or they conflict) than expected.")
+    analyze_and_print_synergy(param1, param2, K1, K2, H_synergy)
 
     # Example: Analyze interaction between SMA and ADX periods
     param3 = 'sma_period'
@@ -324,9 +313,6 @@ if __name__ == "__main__":
         param_b=param4,
         poke_delta=1 # Use integer delta for periods
     )
-    print("\n--- Synergy Analysis Summary 2 ---")
-    print(f"Interaction between '{param3}' and '{param4}':")
-    print(f"  - Sensitivity to {param3} alone (K_a): {K3:.4f}")
-    print(f"  - Sensitivity to {param4} alone (K_b): {K4:.4f}")
-    print(f"  - Synergy Effect (H_ab): {H_synergy_2:.4f}")
+    
+    analyze_and_print_synergy(param3, param4, K3, K4, H_synergy_2)
     # Add interpretation as above...
