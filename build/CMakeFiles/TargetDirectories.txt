@@ -1,0 +1,3 @@
+/home/stagner/workspace/priv/MCIK/build/CMakeFiles/ascii_torus.dir
+/home/stagner/workspace/priv/MCIK/build/CMakeFiles/edit_cache.dir
+/home/stagner/workspace/priv/MCIK/build/CMakeFiles/rebuild_cache.dir

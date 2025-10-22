@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/stagner/workspace/priv/MCIK/build",
+  "command": "/usr/bin/c++  -I/home/stagner/workspace/priv/MCIK/experiments/ascii_torus/cpp -g -std=c++20 -O2 -Wall -Wextra -Wpedantic -o CMakeFiles/ascii_torus.dir/experiments/ascii_torus/cpp/ascii_torus.cpp.o -c /home/stagner/workspace/priv/MCIK/experiments/ascii_torus/cpp/ascii_torus.cpp",
+  "file": "/home/stagner/workspace/priv/MCIK/experiments/ascii_torus/cpp/ascii_torus.cpp",
+  "output": "CMakeFiles/ascii_torus.dir/experiments/ascii_torus/cpp/ascii_torus.cpp.o"
+}
+]

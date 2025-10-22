@@ -1,0 +1,86 @@
+**Title:**
+### A Synergistic Control-Plane for Real-Time Ray Tracing using Micro-Cause Influence Kernels (MCIK)
+
+**Author:**
+Paul Stagner, *Twin Dog Research Series*
+
+**Date:**
+October 19, 2025
+
+**Abstract:**
+Real-time ray tracing remains a grand challenge, not due to a lack of computation, but due to the chaotic, high-dimensional, and non-linear trade-offs required to maintain interactive frame rates. Modern renderers must navigate a vast parameter space, balancing conflicting goals such as noise reduction vs. temporal smearing, acceleration structure update speed vs. traversal quality, and physical accuracy vs. performance clamping. Current solutions rely on static presets or simple, first-order heuristics that fail to capture the complex, synergistic interactions between parameters. We propose a novel, dynamic control-plane based on **Micro-Cause Influence Kernels (MCIK)**. This framework moves beyond simple 1st-order analysis by employing a **second-order Hessian kernel ($H$)** to model and exploit the non-linear synergies and interferences between control inputs. This allows a render engine to make globally optimal, per-frame policy decisions, managing the "chaos problem" by finding non-obvious, synergistic pathways through the parameter space.
+
+---
+
+### 1. The Real-Time Ray Tracing Problem
+
+The adoption of real-time ray tracing has been hindered by a fundamental conflict: the algorithm is physically elegant but computationally chaotic. To achieve a 16.67ms frame budget, renderers are limited to a "1-sample-per-pixel" budget, which creates a cascade of complex, non-linear problems. These problems are not independent but are deeply coupled, forming a high-dimensional optimization challenge. We identify three primary axes of this challenge:
+
+1.  **The Performance & Noise Problem:** The 1-sample input is extremely noisy. This noise is mitigated by aggressive, AI-based denoisers, which introduce their own severe visual artifacts, such as ghosting, smearing, and "swimming" textures. This creates a primary trade-off between *noise* and *temporal artifacts*.
+2.  **The Acceleration Structure Problem:** The Bounding Volume Hierarchy (BVH), essential for performance, is difficult to manage for dynamic geometry. The renderer is forced into a trade-off between a computationally slow, high-quality "Rebuild" or a fast but low-quality "Update," which degrades traversal performance. This creates a trade-off between *build-time* and *traversal-time*.
+3.  **The Algorithmic Complexity Problem:** Physically accurate light paths, such as caustics or complex transparency (hair, foliage), are statistically improbable to resolve with few samples. This leads to "fireflies," which are "solved" by clamping brightness, effectively eliminating these effects. This creates a trade-off between *physical accuracy* and *performance stability*.
+
+Current solutions (e.g., static user presets) are a "one-size-fits-all" compromise. A dynamic, first-order controller (e.g., dynamic resolution) only pulls the most obvious, linear lever. Neither can navigate the *synergies* between these trade-offs.
+
+---
+
+### 2. The MCIK Framework
+
+We propose a solution using our Micro-Cause Influence Kernels (MCIK) framework. We model the renderer as a complex, non-linear operator $T$ that maps a set of input parameters $\mathbf{g}$ to a set of performance metrics $\mathbf{y}$.
+
+Within this framework, we use two tools:
+
+* **The First-Order Kernel ($K(i,a)$):** This kernel, defined as the Fréchet derivative, measures the simple, linear influence of a single input parameter (a "micro-cause" $a$) on a single output metric (an influence $i$). This models the "obvious" trade-offs (e.g., `samples_per_pixel` $\to$ `noise_level`).
+* **The Second-Order Hessian ($H(i;a,b)$):** This is the core of our proposal. The Hessian kernel measures the *non-linear synergy* or *interference* between two micro-causes, $a$ and $b$. It answers: "What is the *extra* change at output $i$ that results from changing $a$ and $b$ *simultaneously*?"
+
+This $H$ kernel is our tool for finding non-obvious, synergistic optimization paths.
+
+---
+
+### 3. An MCIK Control-Plane for Ray Tracing
+
+We architect a real-time, self-optimizing control-plane that sits on top of the render engine.
+
+* **System ($T$):** The render engine + graphics driver.
+* **Inputs (Micro-Causes $a, b, ...$):** The entire vector of tunable parameters (e.g., `samples_per_pixel`, `denoiser_strength`, `temporal_accumulation_frames`, `BVH_policy`, `ray_clamp_value`, `texture_LOD_bias`).
+* **Outputs (Metrics $i, j, ...$):** The target goals (e.g., `frame_time`, `artifact_score` (a weighted sum of smearing/ghosting), `cache_hit_rate`, `VRAM_pressure`).
+
+The control-plane's objective is to solve a multi-goal optimization problem (e.g., `maximize(Quality)` while `constrain(frame_time <= 16.67ms)`) by leveraging its pre-computed (or continuously learned) $H$ kernel map.
+
+---
+
+### 4. MCIK Solutions to Core Problems
+
+#### 4.1 Synergistic Denoiser Management
+
+The trade-off between noise, smearing, and blur is a classic second-order problem. A first-order ($K$) controller only knows that increasing `temporal_accumulation` (Input $a$) reduces `noise` (Output $i$) but increases `ghosting` (Output $j$).
+
+An $H$-kernel controller discovers the synergies. It can find, for example, a powerful positive synergy ($H \gg 0$) between `temporal_accumulation` (Input $a$) and `denoiser_filter_strength` (Input $b$) on the `artifact_score` (Output $k$). By adjusting *both simultaneously* in a coordinated, non-linear way, it can find an optimal "sweet spot" that a linear controller or a static preset would miss, minimizing artifacts for a given noise level.
+
+#### 4.2 Dynamic BVH Policy Selection
+
+The "Update vs. Rebuild" decision is a policy choice with non-linear, temporal consequences. An $H$-kernel controller can model this. It learns the synergistic "cost" ($H < 0$) between the policy `Choice_A` ("Refit BVH") and the scene heuristic `Heuristic_B` ("% of objects in motion").
+
+When `Heuristic_B` is high, the controller's $H$-map predicts that `Choice_A` will lead to a rapid degradation of BVH quality, causing a performance spike in `Traversal_Time` (Output $i$) several frames later. It can therefore make the *globally* optimal choice (e.g., "Rebuild"), even if it appears to be the *locally* slower option.
+
+#### 4.3 Synergistic Resource Budgeting
+
+The "firefly" problem (caustics) and complex geometry (hair) are "solved" by clamping features to zero. This is a first-order solution that ignores potential synergies.
+
+An $H$-kernel controller can manage a **dynamic, synergistic budget**. It understands that the 16.67ms budget is fungible. For a frame focused on a glass of water, the $H$-kernel can find a *synergistic pair* of inputs:
+1.  **Input $a$:** `Caustic_Ray_Budget`
+2.  **Input $b$:** `Volumetric_Fog_Sample_Rate` (for distant, unseen fog)
+
+The $H$-kernel would identify that `(increase(a) + decrease(b))` has a *net-neutral* effect on `frame_time` (Output $i$) but a massive *positive synergistic effect* on `Visual_Quality_Score` (Output $j$). It intelligently "steals" budget from an unseen feature to "pay" for a highly visible one, effectively solving the clamping problem by making it dynamic.
+
+---
+
+### 5. Conclusion
+
+The chaotic, high-dimensional parameter space of real-time ray tracing is a non-linear optimization problem. We propose that Micro-Cause Influence Kernels (MCIK) provide the necessary mathematical framework for a control-plane to manage this chaos. By moving beyond simple, first-order trade-offs and modeling the second-order *synergies* ($H$) between control inputs, an MCIK-based renderer can make intelligent, per-frame decisions to find non-obvious, globally optimal solutions.
+
+### References
+
+[1] Stagner, P. (2025). *Ripple Kernels: Micro-Cause Modeling and Nonlinear Diffusion*. (in preparation).
+[2] (Placeholder) Carmack, J. (2013). *Keynote Address on Real-Time Rendering*.
+[3] (Placeholder) A. et al. (2020). *Bottlenecks in Real-Time Ray Tracing: A Divergence and Bandwidth Analysis*.
