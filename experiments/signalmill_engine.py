@@ -239,6 +239,24 @@ def estimate_finance_h_kernel(symbol, period, baseline_params, param_a, param_b,
     return K_a, K_b, H_ab
 
 
+def analyze_and_print_synergy(param_a, param_b, K_a, K_b, H_ab):
+    """
+    Prints a formatted summary and interpretation of the synergy analysis.
+    """
+    print(f"\n--- Synergy Analysis Summary: {param_a} vs {param_b} ---")
+    print(f"Interaction between '{param_a}' and '{param_b}':")
+    print(f"  - Sensitivity to {param_a} alone (K_a): {K_a:.4f}")
+    print(f"  - Sensitivity to {param_b} alone (K_b): {K_b:.4f}")
+    print(f"  - Synergy Effect (H_ab): {H_ab:.4f}")
+
+    if abs(H_ab) < 1e-6:
+        print("  - Interpretation: The effects are largely independent (additive).")
+    elif H_ab > 0:
+        print("  - Interpretation: Positive Synergy - The combined effect is greater than the sum of individual effects.")
+    else:
+        print("  - Interpretation: Negative Interference - The combined effect is less than the sum of individual effects.")
+
+
 # --- Example Usage ---
 if __name__ == "__main__":
     SYMBOL = 'AAPL' # Apple stock
