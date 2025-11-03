@@ -7,7 +7,7 @@
 
 ## Layout
 - C++: `experiments/ascii_torus/cpp/`
-- Python: `experiments/ascii_torus/python/`
+- Python: `experiments/ascii_torus/python/` #incpomplete atm
 - Tests: `tests/ascii_torus/`
 - Logs: `test_data/ascii_torus/` (CSV)
 
