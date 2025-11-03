@@ -88,7 +88,6 @@ class PCMProperties:
 ---
 
 ## Code & Related Reading
-- Python prototype (CPU-only): [`../mcik-tensf-pcm-test1.py`](../mcik-tensf-pcm-test1.py)
-- C++ minimal driver: [`../main.cpp`](../main.cpp)
+- Python prototype (CPU-only): [`../experiments/pcm/mcik_tensf_pcm_test1.py`](../experiments/pcm/mcik_tensf_pcm_test1.py)
+- C++ minimal driver: [`../modules/cpp/src/main.cpp`](../modules/cpp/src/main.cpp)
 - Conceptual/package reference: [`MicroCause_Kernels_Paper_Package.md`](./MicroCause_Kernels_Paper_Package.md)
-

@@ -1,7 +1,7 @@
 #define CATCH_CONFIG_MAIN
 #include <catch2/catch.hpp>
 #include <vector>
-#include "../../experiments/ascii_torus/cpp/metrics.hpp"
+#include "mcik/experiments/ascii_torus/metrics.hpp"
 
 TEST_CASE("ASCII quality estimator is deterministic on fixed buffer") {
   const int w = 8, h = 4;

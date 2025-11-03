@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/stagner/workspace/priv/MCIK/experiments/ascii_torus/cpp
+CXX_INCLUDES = -I/home/stagner/workspace/priv/MCIK/modules/cpp/include
 
 CXX_FLAGS = -g -std=c++20 -O2 -Wall -Wextra -Wpedantic
 

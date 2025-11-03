@@ -14,8 +14,8 @@
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include "metrics.hpp"
-#include "mcik_controller.hpp"
+#include "mcik/experiments/ascii_torus/metrics.hpp"
+#include "mcik/experiments/ascii_torus/controller.hpp"
 
 // Simple ASCII torus renderer with optional controller (K or K+H)
 // - stdout interactive loop with ANSI clear/home
@@ -63,7 +63,7 @@ struct RenderParams {
   std::string log_csv;                // batch/benchmark logging path
 };
 
-static const char* DEFAULT_RAMP = " .:-=+*#%@"; // length 10
+static const char* DEFAULT_RAMP = " .:-=+*#%@adkfkajnondvakdfaoivqevlasdkjfacvu"; // length 10
 
 struct FrameStats {
   double fps = 0.0;

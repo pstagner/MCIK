@@ -3,11 +3,9 @@ import sys
 import time
 import math
 import csv
-from dataclasses import dataclass
 from typing import List
 
-from .mcik_controller import Params, suggest_step
-from .metrics import estimate_ascii_quality
+from mcik.experiments.ascii_torus import Params, estimate_ascii_quality, suggest_step
 
 RAMP = " .:-=+*#%@"
 

@@ -6,8 +6,8 @@
 - Synergy demo: show H-driven paired parameter gains over single-lever tuning.
 
 ## Layout
-- C++: `experiments/ascii_torus/cpp/`
-- Python: `experiments/ascii_torus/python/` #incpomplete atm
+- C++: `modules/cpp/include/mcik/experiments/ascii_torus/` (shared metrics + controller) and `experiments/ascii_torus/cpp/` (renderer)
+- Python: install `modules/python` (provides `mcik.experiments.ascii_torus`) and run scripts in `experiments/ascii_torus/python/`
 - Tests: `tests/ascii_torus/`
 - Logs: `test_data/ascii_torus/` (CSV)
 
@@ -22,7 +22,8 @@
 ## C++ (stdout)
 Build (create `build/` first):
 ```bash
-g++ -std=c++20 experiments/ascii_torus/cpp/ascii_torus.cpp -O2 -o build/ascii_torus
+cmake -S . -B build
+cmake --build build --target ascii_torus
 ```
 Run:
 ```bash
@@ -34,6 +35,10 @@ Batch:
 ```
 
 ## Python (terminal)
+Install the shared package once (editable makes iteration easier):
+```bash
+pip install -e modules/python
+```
 Run:
 ```bash
 python experiments/ascii_torus/python/ascii_torus.py --mode interactive --target-fps 30 --resolution-scale 1.0 --gamma 1.0 --ramp-size 12

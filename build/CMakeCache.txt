@@ -124,7 +124,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=mcik_ascii_torus
+CMAKE_PROJECT_NAME:STATIC=mcik
 
 //Value Computed by CMake
 CMAKE_PROJECT_SPDX_LICENSE:STATIC=
@@ -195,13 +195,13 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //Value Computed by CMake
-mcik_ascii_torus_BINARY_DIR:STATIC=/home/stagner/workspace/priv/MCIK/build
+mcik_BINARY_DIR:STATIC=/home/stagner/workspace/priv/MCIK/build
 
 //Value Computed by CMake
-mcik_ascii_torus_IS_TOP_LEVEL:STATIC=ON
+mcik_IS_TOP_LEVEL:STATIC=ON
 
 //Value Computed by CMake
-mcik_ascii_torus_SOURCE_DIR:STATIC=/home/stagner/workspace/priv/MCIK
+mcik_SOURCE_DIR:STATIC=/home/stagner/workspace/priv/MCIK
 
 
 ########################

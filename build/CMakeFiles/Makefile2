@@ -63,10 +63,12 @@ CMAKE_BINARY_DIR = /home/stagner/workspace/priv/MCIK/build
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
+all: CMakeFiles/mcik_demo.dir/all
 all: CMakeFiles/ascii_torus.dir/all
 .PHONY : all
 
 # The main recursive "codegen" target.
+codegen: CMakeFiles/mcik_demo.dir/codegen
 codegen: CMakeFiles/ascii_torus.dir/codegen
 .PHONY : codegen
 
@@ -75,8 +77,41 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
+clean: CMakeFiles/mcik_demo.dir/clean
 clean: CMakeFiles/ascii_torus.dir/clean
 .PHONY : clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/mcik_demo.dir
+
+# All Build rule for target.
+CMakeFiles/mcik_demo.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mcik_demo.dir/build.make CMakeFiles/mcik_demo.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mcik_demo.dir/build.make CMakeFiles/mcik_demo.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/stagner/workspace/priv/MCIK/build/CMakeFiles --progress-num=3,4 "Built target mcik_demo"
+.PHONY : CMakeFiles/mcik_demo.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/mcik_demo.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/stagner/workspace/priv/MCIK/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/mcik_demo.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/stagner/workspace/priv/MCIK/build/CMakeFiles 0
+.PHONY : CMakeFiles/mcik_demo.dir/rule
+
+# Convenience name for target.
+mcik_demo: CMakeFiles/mcik_demo.dir/rule
+.PHONY : mcik_demo
+
+# codegen rule for target.
+CMakeFiles/mcik_demo.dir/codegen:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mcik_demo.dir/build.make CMakeFiles/mcik_demo.dir/codegen
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/stagner/workspace/priv/MCIK/build/CMakeFiles --progress-num=3,4 "Finished codegen for target mcik_demo"
+.PHONY : CMakeFiles/mcik_demo.dir/codegen
+
+# clean rule for target.
+CMakeFiles/mcik_demo.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mcik_demo.dir/build.make CMakeFiles/mcik_demo.dir/clean
+.PHONY : CMakeFiles/mcik_demo.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/ascii_torus.dir

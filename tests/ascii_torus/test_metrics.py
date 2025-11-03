@@ -1,5 +1,5 @@
 import pytest
-from experiments.ascii_torus.python.metrics import estimate_ascii_quality
+from mcik.experiments.ascii_torus.metrics import estimate_ascii_quality
 
 def test_ascii_quality_deterministic():
     w, h = 8, 4

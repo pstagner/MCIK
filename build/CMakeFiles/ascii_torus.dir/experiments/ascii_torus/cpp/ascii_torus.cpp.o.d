@@ -274,5 +274,5 @@ CMakeFiles/ascii_torus.dir/experiments/ascii_torus/cpp/ascii_torus.cpp.o: \
  /usr/include/linux/falloc.h /usr/include/x86_64-linux-gnu/bits/stat.h \
  /usr/include/x86_64-linux-gnu/bits/struct_stat.h \
  /usr/include/x86_64-linux-gnu/bits/fcntl2.h \
- /home/stagner/workspace/priv/MCIK/experiments/ascii_torus/cpp/metrics.hpp \
- /home/stagner/workspace/priv/MCIK/experiments/ascii_torus/cpp/mcik_controller.hpp
+ /home/stagner/workspace/priv/MCIK/modules/cpp/include/mcik/experiments/ascii_torus/metrics.hpp \
+ /home/stagner/workspace/priv/MCIK/modules/cpp/include/mcik/experiments/ascii_torus/controller.hpp

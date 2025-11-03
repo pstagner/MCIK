@@ -114,5 +114,6 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
+  "CMakeFiles/mcik_demo.dir/DependInfo.cmake"
   "CMakeFiles/ascii_torus.dir/DependInfo.cmake"
   )

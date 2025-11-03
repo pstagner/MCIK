@@ -117,6 +117,19 @@ depend:
 .PHONY : depend
 
 #=============================================================================
+# Target rules for targets named mcik_demo
+
+# Build rule for target.
+mcik_demo: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 mcik_demo
+.PHONY : mcik_demo
+
+# fast build rule for target.
+mcik_demo/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mcik_demo.dir/build.make CMakeFiles/mcik_demo.dir/build
+.PHONY : mcik_demo/fast
+
+#=============================================================================
 # Target rules for targets named ascii_torus
 
 # Build rule for target.
@@ -153,6 +166,30 @@ experiments/ascii_torus/cpp/ascii_torus.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ascii_torus.dir/build.make CMakeFiles/ascii_torus.dir/experiments/ascii_torus/cpp/ascii_torus.cpp.s
 .PHONY : experiments/ascii_torus/cpp/ascii_torus.cpp.s
 
+modules/cpp/src/main.o: modules/cpp/src/main.cpp.o
+.PHONY : modules/cpp/src/main.o
+
+# target to build an object file
+modules/cpp/src/main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mcik_demo.dir/build.make CMakeFiles/mcik_demo.dir/modules/cpp/src/main.cpp.o
+.PHONY : modules/cpp/src/main.cpp.o
+
+modules/cpp/src/main.i: modules/cpp/src/main.cpp.i
+.PHONY : modules/cpp/src/main.i
+
+# target to preprocess a source file
+modules/cpp/src/main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mcik_demo.dir/build.make CMakeFiles/mcik_demo.dir/modules/cpp/src/main.cpp.i
+.PHONY : modules/cpp/src/main.cpp.i
+
+modules/cpp/src/main.s: modules/cpp/src/main.cpp.s
+.PHONY : modules/cpp/src/main.s
+
+# target to generate assembly for a file
+modules/cpp/src/main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/mcik_demo.dir/build.make CMakeFiles/mcik_demo.dir/modules/cpp/src/main.cpp.s
+.PHONY : modules/cpp/src/main.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,9 +199,13 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... ascii_torus"
+	@echo "... mcik_demo"
 	@echo "... experiments/ascii_torus/cpp/ascii_torus.o"
 	@echo "... experiments/ascii_torus/cpp/ascii_torus.i"
 	@echo "... experiments/ascii_torus/cpp/ascii_torus.s"
+	@echo "... modules/cpp/src/main.o"
+	@echo "... modules/cpp/src/main.i"
+	@echo "... modules/cpp/src/main.s"
 .PHONY : help
 
 

@@ -1,15 +1,20 @@
 import os
 
-# Environment setup to force CPU-only operation
-os.environ['CUDA_VISIBLE_DEVICES'] = '-1'
+# Environment setup for GPU operation
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  # Suppress most TensorFlow logging
 
 import tensorflow as tf
 from typing import List
 
-# Configure for CPU-only operation
-tf.config.set_visible_devices([], 'GPU')  # Disable GPU devices
-print("🔧 TensorFlow configured for CPU-only operation")
+# Check GPU availability
+gpus = tf.config.list_physical_devices('GPU')
+if gpus:
+    print(f"🔧 TensorFlow configured with {len(gpus)} GPU(s) available")
+    # Configure GPU memory growth
+    for gpu in gpus:
+        tf.config.experimental.set_memory_growth(gpu, True)
+else:
+    print("⚠️ No GPU detected. Running on CPU.")
 
 class PCMProperties:
     def __init__(self, name: str, melting_point: float, latent_heat: float, specific_heat: float,

@@ -26,14 +26,15 @@ This hub orients readers to Micro‑Cause Influence Kernels (MCIK), the PCM Tens
 - `Quantum-Inspired Benchmark for Estimating Intrinisic Dimension2510.01335v1.pdf`: External reference kept as supporting reading.
 
 ### Code Entry Points
-- C++ minimal driver: [`../main.cpp`](../main.cpp)
+- C++ minimal driver: [`../modules/cpp/src/main.cpp`](../modules/cpp/src/main.cpp)
   - Build (create `build/` first if missing):
   ```bash
-  g++ -std=c++20 ../main.cpp -I../include -O2 -o ../build/mcik_demo
+  cmake -S .. -B ../build
+  cmake --build ../build --target mcik_demo
   ```
-- TensorFlow prototype (CPU‑only): [`../mcik-tensf-pcm-test1.py`](../mcik-tensf-pcm-test1.py)
+- TensorFlow prototype (CPU‑only): [`../experiments/pcm/mcik_tensf_pcm_test1.py`](../experiments/pcm/mcik_tensf_pcm_test1.py)
   ```bash
-  python ../mcik-tensf-pcm-test1.py
+  python ../experiments/pcm/mcik_tensf_pcm_test1.py
   ```
 
 ### Next Steps
